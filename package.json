@@ -1,0 +1,22 @@
+{
+  "name": "remove-github-deployments",
+  "version": "1.0.0",
+  "description": "Removes \"environments\" from your github repository",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [
+    "github",
+    "environment",
+    "deployment",
+    "heroku"
+  ],
+  "author": "crazyoptimist <hey@crazyoptimist.net>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "node-fetch": "^3.2.6"
+  },
+  "type": "module"
+}
