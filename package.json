@@ -1,7 +1,7 @@
 {
-  "name": "remove-github-deployments",
+  "name": "remove-github-environments",
   "version": "1.0.0",
-  "description": "Removes \"environments\" from your github repository",
+  "description": "Removes environments from your github repository",
   "main": "index.js",
   "scripts": {
     "start": "node index"
