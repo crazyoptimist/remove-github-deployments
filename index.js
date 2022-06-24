@@ -1,15 +1,9 @@
 import 'dotenv/config'
 import fetch from "node-fetch"
 
-const TOKEN = process.env.TOKEN;
-const REPO = process.env.REPO;
-const USER_OR_ORG = process.env.USER_OR_ORG;
+const URL = `https://api.github.com/repos/${process.env.USER_OR_ORG}/${process.env.REPO}/deployments`;
+const AUTH_HEADER = `token ${process.env.TOKEN}`;
 
-// GLOBAL VARS
-const URL = `https://api.github.com/repos/${USER_OR_ORG}/${REPO}/deployments`;
-const AUTH_HEADER = `token ${TOKEN}`;
-
-// UTILITY FUNCTIONS
 const getAllDeployments = () =>
   fetch(`${URL}`, {
     headers: {
@@ -38,24 +32,35 @@ const deleteDeployment = id =>
     }
   }).then(() => id);
 
-// MAIN
-getAllDeployments()
-  .catch(console.error)
-  .then(res => {
-    console.log(`${res.length} deployments found`);
-    return res;
-  })
-  .then(val => val.map(({
-    id
-  }) => id))
-  .then(ids => Promise.all(ids.map(id => makeDeploymentInactive(id))))
-  .then(res => {
-    console.log(`${res.length} deployments marked as "inactive"`);
-    return res;
-  })
-  .then(ids => Promise.all(ids.map(id => deleteDeployment(id))))
-  .then(res => {
-    console.log(`${res.length} deployments deleted`);
-    return res;
-  })
-  .then(finalResult => console.log(finalResult))
+const runBatch = async () => {
+  const batchResult = await getAllDeployments()
+    .catch(console.error)
+    .then(res => {
+      console.log(`${res.length} deployments found`);
+      return res;
+    })
+    .then(val => val.map(({
+      id
+    }) => id))
+    .then(ids => Promise.all(ids.map(id => makeDeploymentInactive(id))))
+    .then(res => {
+      console.log(`${res.length} deployments marked as "inactive"`);
+      return res;
+    })
+    .then(ids => Promise.all(ids.map(id => deleteDeployment(id))))
+    .then(res => {
+      console.log(`${res.length} deployments deleted`);
+      return res;
+    })
+
+  return batchResult;
+}
+
+const removeEnvironments = async () => {
+  while(1) {
+    const batchResult = await runBatch()
+    if (!Array.isArray(batchResult) || batchResult.length === 0) break;
+  }
+}
+
+removeEnvironments()
