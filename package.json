@@ -1,7 +1,7 @@
 {
-  "name": "remove-github-environments",
+  "name": "remove-github-deployments",
   "version": "1.0.0",
-  "description": "Removes environments from your github repository",
+  "description": "This script removes deployments from your github repository",
   "main": "index.js",
   "scripts": {
     "start": "node index"
@@ -13,7 +13,7 @@
     "heroku"
   ],
   "author": "crazyoptimist <hey@crazyoptimist.net>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
     "node-fetch": "^3.2.6"

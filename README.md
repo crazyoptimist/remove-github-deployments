@@ -1,14 +1,17 @@
-# Github Environments(Deployments) Remover
+# Github Deployments Remover
 
-There's no GUI-way to permanently remove "environments"(like Heroku deployment) from your Github repo.  
-This app interacts with github API using your personal Github token and does the job.  
+There's no GUI-way to permanently remove `Deployments` from your Github repo.  
 
-## How to use
+This script interacts with the Github API using your personal access token and does the job.  
+
+## Usage
+
 ```
 cp .env.example .env
 npm i
 npm start
 ```
 
-## Credits
+## Credit
+
 [Stackoverflow](https://stackoverflow.com/questions/53452910/how-to-remove-a-github-environment)
